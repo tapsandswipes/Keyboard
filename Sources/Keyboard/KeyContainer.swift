@@ -9,7 +9,7 @@ public struct KeyContainer<Content: View>: View {
     let content: (Pitch, Bool) -> Content
 
     var pitch: Pitch
-    @ObservedObject var model: KeyboardModel
+    @State var model: KeyboardModel
 
     var zIndex: Int
 

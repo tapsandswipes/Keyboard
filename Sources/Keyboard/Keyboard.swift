@@ -8,7 +8,7 @@ public struct Keyboard<Content>: View where Content: View {
     let content: (Pitch, Bool) -> Content
 
     /// model  contains the keys, their status and touches
-    @StateObject public var model: KeyboardModel = .init()
+    @State public var model: KeyboardModel = .init()
 
     var latching: Bool
     var noteOn: (Pitch, CGPoint) -> Void
