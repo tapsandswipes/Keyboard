@@ -8,11 +8,9 @@ public struct Keyboard<Content>: View where Content: View {
     let content: (Pitch, Bool) -> Content
 
     /// model  contains the keys, their status and touches
-    @State public var model: KeyboardModel = .init()
+    @State public var model: KeyboardModel
 
     var latching: Bool
-    var noteOn: (Pitch, CGPoint) -> Void
-    var noteOff: (Pitch) -> Void
     var layout: KeyboardLayout
 
     /// Initialize the keyboard
@@ -30,8 +28,10 @@ public struct Keyboard<Content>: View where Content: View {
     {
         self.latching = latching
         self.layout = layout
-        self.noteOn = noteOn
-        self.noteOff = noteOff
+        let model = KeyboardModel()
+        model.noteOn = noteOn
+        model.noteOff = noteOff
+        self._model = .init(wrappedValue: model)
         self.content = content
     }
 
@@ -78,9 +78,6 @@ public struct Keyboard<Content>: View where Content: View {
 
         }.onPreferenceChange(KeyRectsKey.self) { keyRectInfos in
             model.keyRectInfos = keyRectInfos
-        }.onAppear {
-            model.noteOn = noteOn
-            model.noteOff = noteOff
         }
     }
 }
@@ -99,8 +96,10 @@ public extension Keyboard where Content == KeyboardKey {
     {
         self.layout = layout
         self.latching = latching
-        self.noteOn = noteOn
-        self.noteOff = noteOff
+        let model = KeyboardModel()
+        model.noteOn = noteOn
+        model.noteOff = noteOff
+        self._model = .init(wrappedValue: model)
 
         var alignment: Alignment = .bottom
 
