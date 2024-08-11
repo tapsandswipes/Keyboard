@@ -46,8 +46,10 @@ public struct KeyContainer<Content: View>: View {
                         value: [KeyRectInfo(rect: rect,
                                             pitch: pitch,
                                             zIndex: zIndex)])
+        #if !os(macOS)
             .contentShape(.hoverEffect, Rectangle())
             .hoverEffect()
+        #endif
     }
 
     public var body: some View {
